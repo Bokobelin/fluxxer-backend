@@ -9,9 +9,10 @@ const PORT = process.env.PORT || 46464;
 
 // Middleware
 app.use(cors({
-  origin: '*', // Allow all origins for development (you can restrict this in production)
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type']
+  origin: '*', // Allow all origins in production (unsafe, but works for your case)
+  methods: ['GET', 'POST', 'OPTIONS'], // Allow necessary HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Allow headers (Authorization header is common for APIs)
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 }));
 
 app.use(bodyParser.json());
