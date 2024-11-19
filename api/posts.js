@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 
 // MongoDB connection setup
 const connectToDB = async () => {
-  if (mongoose.connection.readyState === 1) return; // Already connected
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect(process.env.MONGO_URI.toString());
 };
 
 // Post schema and model
