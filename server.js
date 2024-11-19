@@ -53,6 +53,9 @@ app.post('/posts', async (req, res) => {
   }
 });
 
+// Catch preflight OPTIONS requests
+app.options('*', cors()); // Allow CORS preflight for all routes
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
