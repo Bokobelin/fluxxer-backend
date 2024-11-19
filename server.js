@@ -9,11 +9,10 @@ const PORT = 46464;
 
 // Middleware
 app.use(cors({
-  origin: '*', // Allow requests from any origin
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*', // Allow all origins for development (you can restrict this in production)
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
 }));
-app.options('/posts', cors()); // Respond to preflight requests for /posts
 app.use(bodyParser.json());
 
 // MongoDB Connection
