@@ -16,8 +16,16 @@ const postSchema = new mongoose.Schema({
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = async (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  // Set CORS headers for all origins
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins (you can restrict this in production)
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST'); // Allow specific methods
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow Content-Type header
+
+  // Handle OPTIONS method (preflight request)
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
 
   await connectToDB();
 
