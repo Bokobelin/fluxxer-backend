@@ -7,7 +7,7 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 46464;
 
-// Middleware
+// Middleware for CORS - allow all origins
 app.use(cors({
   origin: '*', // Allow all origins in production (unsafe, but works for your case)
   methods: ['GET', 'POST', 'OPTIONS'], // Allow necessary HTTP methods
@@ -17,8 +17,8 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// MongoDB Connection
-mongoose.connect('mongodb+srv://alistairrichelle:qNwAWizbHcI19Pgk@dev-cluster.el86z.mongodb.net/?retryWrites=true&w=majority&appName=dev-cluster')
+// MongoDB Connection (use environment variables for security)
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Connection error:', err));
 
@@ -38,7 +38,7 @@ app.get('/posts', async (req, res) => {
     const posts = await Post.find().sort({ time: -1 }); // Latest first
     res.json(posts);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Failed to fetch posts: ' + err.message });
   }
 });
 
@@ -47,9 +47,9 @@ app.post('/posts', async (req, res) => {
   try {
     const newPost = new Post(req.body);
     const savedPost = await newPost.save();
-    res.json(savedPost);
+    res.status(201).json(savedPost);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: 'Failed to create post: ' + err.message });
   }
 });
 
