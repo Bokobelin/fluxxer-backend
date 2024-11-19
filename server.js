@@ -60,3 +60,7 @@ app.options('*', cors()); // Allow CORS preflight for all routes
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+app.get('/status', (req, res) => {
+  res.json({ status: 'ok' });
+});
