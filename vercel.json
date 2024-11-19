@@ -8,7 +8,7 @@
   ],
   "headers": [
     {
-      "source": "/api/posts",
+      "source": "/api/posts.js",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
