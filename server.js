@@ -13,6 +13,7 @@ app.use(cors({
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+app.options('/posts', cors()); // Respond to preflight requests for /posts
 app.use(bodyParser.json());
 
 // MongoDB Connection
