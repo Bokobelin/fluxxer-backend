@@ -5,7 +5,7 @@ const cors = require('cors');
 
 // App setup
 const app = express();
-const PORT = 46464;
+const PORT = process.env.PORT || 46464;
 
 // Middleware
 app.use(cors({
@@ -13,6 +13,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type']
 }));
+
 app.use(bodyParser.json());
 
 // MongoDB Connection
@@ -25,9 +26,11 @@ const postSchema = new mongoose.Schema({
   content: String,
   time: { type: Date, default: Date.now },
 });
+
 const Post = mongoose.model('Post', postSchema);
 
 // Routes
+
 // Fetch all posts
 app.get('/posts', async (req, res) => {
   try {
@@ -49,7 +52,7 @@ app.post('/posts', async (req, res) => {
   }
 });
 
-// Start Server
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
