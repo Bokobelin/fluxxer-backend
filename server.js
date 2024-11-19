@@ -11,7 +11,7 @@ const PORT = 46464;
 app.use(cors({
   origin: '*', // Allow requests from any origin
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(bodyParser.json());
 
