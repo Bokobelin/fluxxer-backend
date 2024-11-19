@@ -8,7 +8,11 @@ const app = express();
 const PORT = 46464;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow requests from any origin
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+}));
 app.use(bodyParser.json());
 
 // MongoDB Connection
