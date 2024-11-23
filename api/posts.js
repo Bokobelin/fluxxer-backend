@@ -1,9 +1,8 @@
-// api/posts.js
 const mongoose = require('mongoose');
 
 // MongoDB connection setup
 const connectToDB = async () => {
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect("mongodb+srv://alistairrichelle:qNwAWizbHcI19Pgk@dev-cluster.el86z.mongodb.net/?retryWrites=true&w=majority&appName=dev-cluster");
 };
 
 // Post schema and model
@@ -30,8 +29,15 @@ module.exports = async (req, res) => {
 
   if (req.method === 'GET') {
     try {
-      const posts = await Post.find().sort({ time: -1 });
-      res.status(200).json(posts);
+      const { index = 0 } = req.query; // Get the `index` from query params (default: 0)
+      const post = await Post.findOne().sort({ time: -1 }).skip(Number(index)).exec();
+
+      if (!post) {
+        res.status(404).json({ message: 'No more posts available' });
+        return;
+      }
+
+      res.status(200).json(post);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
