@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // MongoDB connection setup
 const connectToDB = async () => {
-  await mongoose.connect("mongodb+srv://alistairrichelle:qNwAWizbHcI19Pgk@dev-cluster.el86z.mongodb.net/?retryWrites=true&w=majority&appName=dev-cluster");
+  await mongoose.connect(process.env.MONGO_URI);
 };
 
 // Post schema and model
