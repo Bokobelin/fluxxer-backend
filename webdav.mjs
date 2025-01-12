@@ -30,6 +30,9 @@ const webdavClient = createClient(
 // Fetch all posts
 app.get('/posts', async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     // Fetch posts from WebDAV
     let posts = [];
     try {
@@ -52,6 +55,9 @@ app.get('/posts', async (req, res) => {
 // Create a new post
 app.post('/posts', async (req, res) => {
   try {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     // Fetch existing posts
     let posts = [];
     try {
