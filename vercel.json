@@ -8,7 +8,7 @@
     ],
     "headers": [
       {
-        "source": "/webdav.mjs",
+        "source": "/(.*)",  // Apply to all routes
         "headers": [
           {
             "key": "Access-Control-Allow-Origin",

@@ -1,7 +1,6 @@
-import { createClient } from 'webdav';
 import express from 'express';
-import { json } from 'express'; // Use express's built-in json middleware
 import cors from 'cors';
+import { createClient } from 'webdav';
 import dotenv from 'dotenv';
 
 // Load .env file
@@ -11,9 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = 45454;
 
+// Apply CORS globally
+app.use(cors());  // CORS headers for all routes
+
 // Middleware
-app.use(cors());
-app.use(json()); // Using express built-in json middleware
+app.use(express.json());  // Built-in middleware for parsing JSON
 
 // WebDAV Client Setup
 const webdavClient = createClient(
@@ -30,9 +31,6 @@ const webdavClient = createClient(
 // Fetch all posts
 app.get('/posts', async (req, res) => {
   try {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     // Fetch posts from WebDAV
     let posts = [];
     try {
@@ -55,9 +53,6 @@ app.get('/posts', async (req, res) => {
 // Create a new post
 app.post('/posts', async (req, res) => {
   try {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     // Fetch existing posts
     let posts = [];
     try {
