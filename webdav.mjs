@@ -13,6 +13,8 @@ const PORT = 45454;
 // Apply CORS globally
 app.use(cors());  // CORS headers for all routes
 
+app.options('*', cors());
+
 // Middleware
 app.use(express.json());  // Built-in middleware for parsing JSON
 
