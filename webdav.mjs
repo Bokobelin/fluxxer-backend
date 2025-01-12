@@ -1,6 +1,7 @@
-import express from 'express';
-import cors from 'cors';
 import { createClient } from 'webdav';
+import express from 'express';
+import { json } from 'express'; // Use express's built-in json middleware
+import cors from 'cors';
 import dotenv from 'dotenv';
 
 // Load .env file
@@ -10,13 +11,9 @@ dotenv.config();
 const app = express();
 const PORT = 45454;
 
-// Apply CORS globally
-app.use(cors());  // CORS headers for all routes
-
-app.options('*', cors());
-
 // Middleware
-app.use(express.json());  // Built-in middleware for parsing JSON
+app.use(cors());
+app.use(json()); // Using express built-in json middleware
 
 // WebDAV Client Setup
 const webdavClient = createClient(
@@ -25,13 +22,10 @@ const webdavClient = createClient(
     username: "u441636", // Make sure there are no extra spaces
     password: process.env.WEBDAV_PASSWORD,
     clientOptions: {
-      rejectUnauthorized: false // Disable SSL verification temporarily
-    }
+        rejectUnauthorized: false // Disable SSL verification temporarily
+      }
   }
 );
-
-// Preflight OPTIONS request handler
-app.options('*', cors()); // Respond to preflight OPTIONS requests
 
 // Fetch all posts
 app.get('/posts', async (req, res) => {
