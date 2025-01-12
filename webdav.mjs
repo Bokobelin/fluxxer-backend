@@ -23,10 +23,13 @@ const webdavClient = createClient(
     username: "u441636", // Make sure there are no extra spaces
     password: process.env.WEBDAV_PASSWORD,
     clientOptions: {
-        rejectUnauthorized: false // Disable SSL verification temporarily
-      }
+      rejectUnauthorized: false // Disable SSL verification temporarily
+    }
   }
 );
+
+// Preflight OPTIONS request handler
+app.options('*', cors()); // Respond to preflight OPTIONS requests
 
 // Fetch all posts
 app.get('/posts', async (req, res) => {
