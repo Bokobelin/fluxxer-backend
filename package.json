@@ -16,5 +16,6 @@
     "express": "^4.21.1",
     "mongoose": "^8.8.2",
     "webdav": "^5.7.1"
-  }
+  },
+  "type": "module"
 }
