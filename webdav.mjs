@@ -1,7 +1,6 @@
-import { createClient } from 'webdav';
 import express from 'express';
-import { json } from 'express'; // Use express's built-in json middleware
 import cors from 'cors';
+import { createClient } from 'webdav';
 import dotenv from 'dotenv';
 
 // Load .env file
@@ -11,9 +10,11 @@ dotenv.config();
 const app = express();
 const PORT = 45454;
 
+// Apply CORS globally
+app.use(cors());  // CORS headers for all routes
+
 // Middleware
-app.use(cors());
-app.use(json()); // Using express built-in json middleware
+app.use(express.json());  // Built-in middleware for parsing JSON
 
 // WebDAV Client Setup
 const webdavClient = createClient(
